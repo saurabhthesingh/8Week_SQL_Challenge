@@ -166,3 +166,56 @@ with cte_date as (
     where s.order_date < '2021-02-01'
     GROUP BY 1,2,3,4,5
     ORDER BY 1
+
+
+------------------------
+--BONUS QUESTIONS-------
+------------------------
+
+-- Recreate the table with: customer_id, order_date, product_name, price, member (Y/N)
+
+SELECT 
+  s.customer_id,
+  s.order_date,
+  m.product_name,
+  m.price,
+  CASE
+      when s.order_date >= ms.join_date then "Y" 
+      else "N"
+      end 
+  as member
+ FROM sales s
+ left join menu m 
+ on s.product_id = m.product_id
+ left join members ms
+ on s.customer_id = ms.customer_id
+ 
+ 
+-- Recreate the table with: customer_id, order_date, product_name, price, member (Y/N), ranking(null/123)
+with cte_summary as (
+  SELECT 
+  s.customer_id,
+  s.order_date,
+  m.product_name,
+  m.price,
+  CASE
+      when s.order_date >= ms.join_date then "Y" 
+      else "N"
+      end 
+  as member
+ FROM sales s
+ left join menu m 
+ on s.product_id = m.product_id
+ left join members ms
+ on s.customer_id = ms.customer_id
+  )
+ SELECT * ,
+ CASE 
+      WHEN meber = 'N' then null
+      ELSE RANK() OVER PARTITION BY customer_id,member ORDER BY  order_date 
+ END as ranking
+ FROM cte_summary ;
+ 
+
+ 
+  
