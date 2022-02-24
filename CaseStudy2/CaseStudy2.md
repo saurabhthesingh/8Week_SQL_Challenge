@@ -26,11 +26,7 @@ Danny started by recruiting “runners” to deliver fresh pizza from Pizza Runn
 
 The runners table shows the registration_date for each new runner
 
-runner_id	registration_date
-1         2021-01-01
-2	2021-01-03
-3	2021-01-08
-4	2021-01-15
+![image](https://user-images.githubusercontent.com/59935481/155583765-5b93d092-452d-42b1-8c11-47a9a8039322.png)
 
 ### Table 2: customer_orders
 
@@ -56,35 +52,21 @@ There are some known data issues with this table so be careful when using this i
 
 At the moment - Pizza Runner only has 2 pizzas available the Meat Lovers or Vegetarian!
 
-pizza_id	pizza_name
-1	        Meat Lovers
-2	        Vegetarian
+![image](https://user-images.githubusercontent.com/59935481/155583933-9f6941c7-0624-4905-94d2-095d31973ffd.png)
+
 
 ### Table 5: pizza_recipes
 
 Each pizza_id has a standard set of toppings which are used as part of the pizza recipe.
 
-pizza_id	toppings
-1	        1, 2, 3, 4, 5, 6, 8, 10
-2	        4, 6, 7, 9, 11, 12
+![image](https://user-images.githubusercontent.com/59935481/155584008-9b29e595-a025-4982-bb2f-9892ee0517dc.png)
+
 
 ### Table 6: pizza_toppings
 
 This table contains all of the topping_name values with their corresponding topping_id value
 
-topping_id	topping_name
-          1	Bacon
-          2	BBQ Sauce
-          3	Beef
-          4	Cheese
-          5	Chicken
-          6	Mushrooms
-          7	Onions
-          8	Pepperoni
-          9	Peppers
-         10 Salami
-         11 Tomatoes
-         12 Tomato Sauce
+![image](https://user-images.githubusercontent.com/59935481/155584085-a58c2919-e497-4c4b-9874-659b17a58799.png)
 
 
 
