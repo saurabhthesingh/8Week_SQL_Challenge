@@ -22,7 +22,7 @@ Danny started by recruiting “runners” to deliver fresh pizza from Pizza Runn
 
 ## Data Tables
 
-###Table 1: runners
+### Table 1: runners
 
 The runners table shows the registration_date for each new runner
 
@@ -32,7 +32,7 @@ runner_id	registration_date
 3	2021-01-08
 4	2021-01-15
 
-###Table 2: customer_orders
+### Table 2: customer_orders
 
 Customer pizza orders are captured in the customer_orders table with 1 row for each individual pizza that is part of the order.
 
@@ -43,7 +43,7 @@ Note that customers can order multiple pizzas in a single order with varying exc
 The exclusions and extras columns will need to be cleaned up before using them in your queries.
 ![image](https://user-images.githubusercontent.com/59935481/155582377-d65238fd-99ae-4bce-8714-f7be08aaea62.png)
 
-###Table 3: runner_orders
+### Table 3: runner_orders
 
 After each orders are received through the system - they are assigned to a runner - however not all orders are fully completed and can be cancelled by the restaurant or the customer.
 
@@ -52,7 +52,7 @@ The pickup_time is the timestamp at which the runner arrives at the Pizza Runner
 There are some known data issues with this table so be careful when using this in your queries - make sure to check the data types for each column in the schema SQL!
 ![image](https://user-images.githubusercontent.com/59935481/155582539-9652e39f-3acb-46b9-8043-8a0ef966dd3e.png)
 
-###Table 4: pizza_names
+### Table 4: pizza_names
 
 At the moment - Pizza Runner only has 2 pizzas available the Meat Lovers or Vegetarian!
 
@@ -60,7 +60,7 @@ pizza_id	pizza_name
 1	        Meat Lovers
 2	        Vegetarian
 
-###Table 5: pizza_recipes
+### Table 5: pizza_recipes
 
 Each pizza_id has a standard set of toppings which are used as part of the pizza recipe.
 
@@ -68,7 +68,7 @@ pizza_id	toppings
 1	        1, 2, 3, 4, 5, 6, 8, 10
 2	        4, 6, 7, 9, 11, 12
 
-###Table 6: pizza_toppings
+### Table 6: pizza_toppings
 
 This table contains all of the topping_name values with their corresponding topping_id value
 
