@@ -5,6 +5,7 @@
 ## 📚 Table of Contents
 - [Business Task](#business-task)
 - [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Data Tables](#data-tables)
 - [Case Study Questions](#case-study-questions)
 
 
@@ -18,6 +19,20 @@ Danny started by recruiting “runners” to deliver fresh pizza from Pizza Runn
 ## Entity Relationship Diagram
 
 ![image](https://user-images.githubusercontent.com/81607668/127271531-0b4da8c7-8b24-4a14-9093-0795c4fa037e.png)
+
+## Entity Relationship Diagram
+
+
+![image](https://user-images.githubusercontent.com/59935481/155580970-753ae5e5-678b-4f6e-8129-c9ae5b12506b.png)
+
+![image](https://user-images.githubusercontent.com/59935481/155581197-1626c1b8-4f66-4c2b-9cbc-9e75d9348708.png)
+
+![image](https://user-images.githubusercontent.com/59935481/155581295-a031daba-4106-4eb9-8c16-cb06be06ec5c.png)
+
+![image](https://user-images.githubusercontent.com/59935481/155581384-75baa82c-f3f8-4d7a-9708-450c2eea5a18.png)
+
+
+
 
 ## Case Study Questions
 
