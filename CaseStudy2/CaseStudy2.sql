@@ -53,12 +53,10 @@ FROM orders ;
 --7. For each customer, how many delivered pizzas had at least 1 change and how many had no changes?
 SELECT 
   c.customer_id,
-  SUM
-      (CASE WHEN c.exclusions <> ' ' or c.extras <> ' ' THEN 1
+  SUM(CASE WHEN c.exclusions <> ' ' or c.extras <> ' ' THEN 1
        ELSE 0
        END ) as atleast_1_change,
-  SUM
-      (CASE WHEN c.exclusions <> ' ' and c.extras <> ' ' THEN 1
+  SUM(CASE WHEN c.exclusions <> ' ' and c.extras <> ' ' THEN 1
        ELSE 0
        END ) as no_change,
 FROM customer_orders c
