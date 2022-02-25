@@ -44,8 +44,8 @@ The exclusions and extras columns will need to be cleaned up before using them i
 After each orders are received through the system - they are assigned to a runner - however not all orders are fully completed and can be cancelled by the restaurant or the customer.
 
 The pickup_time is the timestamp at which the runner arrives at the Pizza Runner headquarters to pick up the freshly cooked pizzas. The distance and duration fields are related to how far and long the runner had to travel to deliver the order to the respective customer.
-
 There are some known data issues with this table so be careful when using this in your queries - make sure to check the data types for each column in the schema SQL!
+
 ![image](https://user-images.githubusercontent.com/59935481/155582539-9652e39f-3acb-46b9-8043-8a0ef966dd3e.png)
 
 ### Table 4: pizza_names
