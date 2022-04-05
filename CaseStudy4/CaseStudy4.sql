@@ -48,3 +48,80 @@ FROM cte;
 
 
 
+
+
+
+-------------------------
+B. Customer Transactions
+--------------------------
+--1. What is the unique count and total amount for each transaction type?
+SELECT 
+  t.txn_type,
+  COUNT(*) as txn_count,
+  SUM(t.txn_amount) as total_amt
+FROM data_bank.customer_transactions t
+
+--2. What is the average total historical deposit counts and amounts for all customers?
+WITH deposits AS (
+  SELECT 
+    customer_id, 
+    txn_type, 
+    COUNT(*) AS txn_count, 
+    AVG(txn_amount) AS avg_amount
+  FROM data_bank.customer_transactions
+  GROUP BY customer_id, txn_type)
+
+SELECT 
+  ROUND(AVG(txn_count),0) AS avg_deposit, 
+  ROUND(AVG(avg_amount),2) AS avg_amount
+FROM deposits
+WHERE txn_type = 'deposit';
+
+--3. For each month - how many Data Bank customers make more than 1 deposit and either 1 purchase or 1 withdrawal in a single month?
+WITH monthly_txn AS (
+  SELECT 
+  	customer_id,
+    DATE_PART('month', txn_date) AS month,
+    SUM(CASE WHEN txn_type = 'deposit' THEN 0 ELSE 1 END) AS deposit_count,
+    SUM(CASE WHEN txn_type = 'purchase' THEN 0 ELSE 1 END) AS purchase_count,
+    SUM(CASE WHEN txn_type = 'withdrawal' THEN 0 ELSE 1 END) AS withdrawal_count
+  FROM data_bank.customer_transactions
+  GROUP BY customer_id, month
+ )
+
+SELECT
+  month,
+  COUNT(DISTINCT customer_id) AS customer_count
+FROM monthly_txn
+WHERE deposit_count > 1 
+  AND (purchase_count > 1 OR withdrawal_count > 1)
+GROUP BY month
+ORDER BY month;
+
+--4. What is the closing balance for each customer at the end of the month?
+with temp as (
+  SELECT 
+	customer_id,
+	TO_CHAR((DATE_TRUNC('month', txn_date) + INTERVAL '1 MONTH - 1 DAY'),'DD/MM/YYYY') AS month_ends,
+  -- TO_CHAR(closing_month, 'DD/MM/YYYY') as month_ends,
+     SUM(CASE WHEN txn_type = 'deposit' then txn_amount
+     	ELSE (-txn_amount)
+     END) AS txn_balance
+  FROM data_bank.customer_transactions
+  GROUP BY 1,2 )
+ 
+ SELECT 
+customer_id,
+month_ends,
+txn_balance,
+SUM(txn_balance) OVER 
+      (PARTITION BY customer_id ORDER BY month_ends
+      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS closing_balance
+FROM temp
+GROUP BY 1,2,3
+ORDER BY customer_id
+ORDER BY customer_id,month_ends
+
+--5. What is the percentage of customers who increase their closing balance by more than 5%?
+
+
