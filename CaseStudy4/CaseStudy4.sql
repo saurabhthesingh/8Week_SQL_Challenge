@@ -123,5 +123,60 @@ ORDER BY customer_id
 ORDER BY customer_id,month_ends
 
 --5. What is the percentage of customers who increase their closing balance by more than 5%?
+with temp as
+(
+  SELECT 
+	customer_id,
+	TO_CHAR((DATE_TRUNC('month', txn_date) + INTERVAL '1 MONTH - 1 DAY'),'DD/MM/YYYY') AS month_ends,
+     SUM(CASE WHEN txn_type = 'deposit' then txn_amount
+     	ELSE (-txn_amount)
+     END) AS txn_balance
+  FROM data_bank.customer_transactions
+  GROUP BY 1,2 
+)
+,
+balance as 
+( 
+SELECT 
+customer_id,
+month_ends,
+txn_balance,
+SUM(txn_balance) OVER 
+      (PARTITION BY customer_id ORDER BY month_ends
+      ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS closing_balance
+FROM temp
+GROUP BY 1,2,3
+)
+,
+next_balance as (
+SELECT 
+customer_id,
+month_ends,
+closing_balance,
+LEAD (closing_balance) OVER
+	(PARTITION BY customer_id ORDER BY month_ends) AS next_bal,
+LEAD (closing_balance) OVER
+	(PARTITION BY customer_id ORDER BY month_ends) - closing_balance AS diff  
+FROM balance
+GROUP BY 1,2,3
+)
+ ,
+last as(
+SELECT
+customer_id,
+month_ends,
+closing_balance,
+next_bal,
+ROUND(100*(next_bal - closing_balance)/ closing_balance::NUMERIC,2) AS change 
+FROM next_balance
+where next_bal::TEXT NOT LIKE '-%'
+GROUP BY 1,2,3,4,5
+HAVING  ROUND(100*(next_bal - closing_balance)/ closing_balance::NUMERIC,2) > 5
+ORDER BY 1,2
+)
 
-
+select 
+ROUND (100*count(*)  / 
+	(SELECT COUNT(DISTINCT customer_id::NUMERIC)
+    FROM temp),2)
+from last
